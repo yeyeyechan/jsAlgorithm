@@ -65,6 +65,7 @@ class BinarySearchTree {
     }
     return false;
   }
+
   BFS() {
     let root = this.root;
     let queue = [];
@@ -79,6 +80,16 @@ class BinarySearchTree {
     return visited;
   }
   preOrder() {
+    let root = this.root;
+    let visited = [];
+    function traverse(node) {
+      visited.push(root);
+      if (root.left) traverse(root.left);
+      if (root.right) traverse(root.right);
+    }
+    traverse(root);
+  }
+  preOrder() {
     let visited = [];
     function traverse(root) {
       visited.push(root.value);
@@ -87,6 +98,7 @@ class BinarySearchTree {
     }
     traverse(this.root);
   }
+
   postOrder() {
     let visited = [];
     function traverse(root) {
@@ -97,6 +109,7 @@ class BinarySearchTree {
     traverse(this.root);
     return visited;
   }
+
   inOrder() {
     let visited = [];
     function traverse(root) {
