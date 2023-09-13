@@ -1,12 +1,12 @@
 function mergeSort(arr) {
   let length = arr.length;
-  if (length === 1) return arr;
+  if (length === 1 || length === 0) return arr;
   let mid = Math.floor(length / 2);
 
   let left = arr.slice(0, mid);
   let right = arr.slice(mid, length);
 
-  return merge(left, right);
+  return merge(mergeSort(left), mergeSort(right));
 }
 
 function merge(left, right) {
@@ -27,7 +27,7 @@ let arr = [
   53, 7, 4, 53, 6353, 4, 6,
 ];
 console.time("mergeSort");
-mergeSort(arr);
+console.log(mergeSort(arr));
 console.timeEnd("mergeSort");
 
-console.log(arr.slice(0, 0));
+console.log(arr);
