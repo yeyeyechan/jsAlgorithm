@@ -1,13 +1,16 @@
 var RandomizedSet = function () {
   this.data = [];
+  this.map = new Map();
 };
+
 /**
  * @param {number} val
  * @return {boolean}
  */
 RandomizedSet.prototype.insert = function (val) {
-  if (this.data[val]) return false;
-  this.data[val] = true;
+  if (this.map.has(val)) return false;
+  this.data.push(val);
+  this.map.set(val, this.data.length - 1);
   return true;
 };
 
@@ -16,8 +19,14 @@ RandomizedSet.prototype.insert = function (val) {
  * @return {boolean}
  */
 RandomizedSet.prototype.remove = function (val) {
-  if (!this.data[val]) return false;
-  this.data[val] = false;
+  if (!this.map.has(val)) return false;
+  const valIdx = this.map.get(val);
+  const end = this.data[this.data.length - 1];
+  this.data[valIdx] = end;
+  this.map.set(end, valIdx);
+
+  this.data.pop();
+  this.map.delete(val);
   return true;
 };
 
@@ -25,7 +34,9 @@ RandomizedSet.prototype.remove = function (val) {
  * @return {number}
  */
 RandomizedSet.prototype.getRandom = function () {
-  return this.data;
+  const rdmNum = Math.floor(Math.random() * this.data.length);
+
+  return this.data[rdmNum];
 };
 
 /**
